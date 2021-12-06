@@ -2,26 +2,34 @@ const fs = require('fs');
 
 const checkIfCardHasBingo = (card, number) => {
   let bingo = false;
-  card.forEach(row => {
+  console.log('set false', bingo);
+  card.every(row => {
     bingo = hasBingo ? false : row.filter(value => value.drawn).length === 5;
 
     if (!hasBingo && bingo) {
+      console.log("BINGO?", bingo)
       hasBingo = bingo;
       bingoCard = { number, card };
+      return false;
     }
+    return true;
   });
-
-  [...Array(5)].forEach((_, i) => {
+  console.log('halfway', bingo)
+  [...Array(5)].every((_, i) => {
     const vertical = card.map(row => {
       return row[i];
     });
     bingo = hasBingo ? false : vertical.filter(value => value.drawn).length === 5;
 
     if (!hasBingo && bingo) {
+      console.log("BINGO?", bingo)
       hasBingo = bingo;
       bingoCard = { number, card };
+      return false;
     }
+    return true
   });
+  console.log(number, bingo, hasBingo);
 
 }
 
